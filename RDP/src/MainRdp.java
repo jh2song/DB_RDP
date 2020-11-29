@@ -1,8 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
 public class MainRdp extends JFrame{
+	
 	public MainRdp() {
 		setTitle("동의대 수강 평가 시스템");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
@@ -31,26 +33,12 @@ public class MainRdp extends JFrame{
 		public LoginPanel() {
 			// ID 세팅
 			idLabel = new JLabel("ID : ");
-			idLabel.setLocation(200, 5);
-			idLabel.setSize(30, 20);
-			
 			idTextField = new JTextField(8);
-			idTextField.setLocation(230, 5);
-			idTextField.setSize(100, 20);
-			
 			// PW 세팅
 			pwLabel = new JLabel("PASSWORD : ");
-			pwLabel.setLocation(350, 5);
-			pwLabel.setSize(80, 20);
-			
 			pwField = new JPasswordField(10);
-			pwField.setLocation(440, 5);
-			pwField.setSize(100, 20);
-			
 			// 로그인 버튼 세팅
 			loginButton = new JButton("Login");
-			loginButton.setLocation(550, 5);
-			loginButton.setSize(100, 20);
 			
 			add(idLabel);
 			add(idTextField);
@@ -107,11 +95,18 @@ public class MainRdp extends JFrame{
 	class TabelPanel extends JPanel {
 		// Table 생성
 		private String colName[] = {"강좌명","학과명","이수구분","연도","학기"};
-		
+		private DefaultTableModel model = new DefaultTableModel(colName, 0);
+		private JTable table = new JTable(model);
+		private JPanel pan = new JPanel();
 		public TabelPanel() {
+			// JDBC로 테이블에 튜플 하나씩 추가해야됨
 			
+			//
+			pan.add(new JScrollPane(table));
+			add(pan);
 		}
 	}
+	
 	public static void main(String[] args) {
 		new MainRdp();
 	}
