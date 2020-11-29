@@ -1,0 +1,54 @@
+import java.awt.*;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+public class MainRdp extends JFrame{
+	private JLabel idLabel;
+	private JTextField idTextField;
+	private JLabel pwLabel;
+	private JPasswordField pwField;
+	private JButton loginButton;
+	
+	public MainRdp() {
+		setTitle("동의대 수강 평가 시스템");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		Container c = getContentPane();
+		setLayout(null);
+		setSize(800,500);		
+		setVisible(true);
+		
+
+
+		idLabel = new JLabel("ID : ");
+		idLabel.setLocation(200, 5);
+		idLabel.setSize(30, 20);
+		
+		idTextField = new JTextField(8);
+		idTextField.setLocation(230, 5);
+		idTextField.setSize(100, 20);
+		
+		pwLabel = new JLabel("PASSWORD : ");
+		pwLabel.setLocation(350, 5);
+		pwLabel.setSize(80, 20);
+		
+		pwField = new JPasswordField(10);
+		pwField.setLocation(440, 5);
+		pwField.setSize(100, 20);
+		
+		loginButton = new JButton("Login");
+		loginButton.setLocation(550, 5);
+		loginButton.setSize(100, 20);
+		
+		c.add(idLabel);
+		c.add(idTextField);
+		c.add(pwLabel);
+		c.add(pwField);
+		c.add(loginButton);
+
+	}
+
+	public static void main(String[] args) {
+		new MainRdp();
+	}
+
+}
