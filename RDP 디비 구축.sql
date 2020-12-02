@@ -162,3 +162,13 @@ SELECT * FROM 강좌;
 -- 수강평가게시판 INSERT
 
 COMMIT;
+
+------------------------------------------------------
+-- Additional Commit By Jongseok
+
+INSERT INTO 책 VALUES ('9','디지털 신호 처리');
+INSERT INTO 책 VALUES ('10','C++ 프로그래밍');
+INSERT INTO 책 VALUES ('11', 'JAVA 개발자를 위한 XML');
+INSERT INTO 책 VALUES ('12','C#프로그래밍 입문');
+
+COMMIT;
