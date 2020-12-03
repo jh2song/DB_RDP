@@ -186,3 +186,37 @@ SELECT * FROM 강좌;
 -- 수강평가게시판 INSERT
 
 COMMIT;
+
+
+--------------------------------------------------------
+-- 저장 프로시저 만들기
+
+/* 강의 예
+CREATE OR REPLACE PROCEDURE SP_InOut1 (
+  Pi_ID IN CHAR,
+  Pi_Name IN CHAR,
+  Po_적립금 OUT NUMBER
+) AS
+    --v_count VARCHAR(10);
+BEGIN
+  INSERT INTO 고객(고객아이디, 고객이름, 등급) VALUES(Pi_ID, Pi_Name, 'Silver');
+  SELECT MAX(적립금) INTO Po_적립금 FROM 고객; 
+END ;
+*/
+
+CREATE OR REPLACE PROCEDURE SP_allRateSession (
+    PI_강좌명 IN 강좌.강좌명%TYPE,
+    PI_학과명 IN 학과.학과명%TYPE,
+    PO_교수 OUT 교수.교수명%TYPE,
+    PI_연도 IN 강좌.연도%TYPE,
+    PI_학기 IN 강좌.학기%TYPE,
+    PO_교재 OUT 책.책이름%TYPE,
+    PO_전체평점 OUT 강좌.전체평점%TYPE
+) AS
+
+BEGIN
+    SELECT 교수.교수명, 책.책이름, 강좌.전체평점 INTO PO_교수, PO_교재, PO_전체평점
+    FROM 강좌,학과,책,교수
+    WHERE 강좌.학과코드=학과.학과코드 AND 강좌.수업책코드=책.책코드 AND 강좌.교수코드=교수.교수코드-- 조인
+    AND 강좌.강좌명=PI_강좌명 AND 학과.학과명=PI_학과명 AND 강좌.연도=PI_연도 AND 강좌.학기=PI_학기;
+END;

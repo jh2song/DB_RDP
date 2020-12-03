@@ -9,8 +9,8 @@ public class MainRdp extends JFrame{
     
     private Container c;
 	private DB_Conn_Query dbc;
-	private String usrId;
-	private String usrName;
+	private String usrId=null;
+	private String usrName=null;
 	
     public static MainRdp getInstance() {
     	if (instance == null)
