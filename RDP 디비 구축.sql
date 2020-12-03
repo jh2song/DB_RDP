@@ -96,6 +96,18 @@ INSERT INTO 책 VALUES ('6','토목공학기초');
 INSERT INTO 책 VALUES ('7','전자공학기초');
 -- 소프트웨어
 INSERT INTO 책 VALUES ('8','두근두근파이썬');
+INSERT INTO 책 VALUES ('9','C# 프로그래밍 입문');
+INSERT INTO 책 VALUES ('10','운영체제 개정3판');
+INSERT INTO 책 VALUES ('11','Java 개발자를 위한 XML');
+INSERT INTO 책 VALUES ('12','두근두근 자료구조');
+INSERT INTO 책 VALUES ('13','명품 C++ Programming');
+INSERT INTO 책 VALUES ('14','어서와 파이썬은 처음이지');
+INSERT INTO 책 VALUES ('15','게임샐러드 워크북');
+INSERT INTO 책 VALUES ('16','알기쉬운 정보보호 개론');
+INSERT INTO 책 VALUES ('17','컴퓨터 구조 및 설계');
+INSERT INTO 책 VALUES ('18','디지털 신호 처리');
+
+
 SELECT * FROM 책;
 
 
@@ -157,18 +169,20 @@ INSERT INTO 강좌 VALUES ('1','기초프로그래밍1','2020','1','전공필수','1','1','1'
 INSERT INTO 강좌 VALUES ('2','데이터베이스응용','2020','2','전공선택','2','2','1','월45수34','0');
 INSERT INTO 강좌 VALUES ('3','알기쉬운 전기세계','2020','1','자유교양','4','4','2','화67','0');
 INSERT INTO 강좌 VALUES ('4','프로그래밍입문','2020','2','공통교양','8','8','6','목67','0');
+INSERT INTO 강좌 VALUES ('5','비주얼프로그래밍','2020','2','전공필수','3','9','1','월12','0');
+INSERT INTO 강좌 VALUES ('6','운영체제','2020','2','전공선택','5','10','1','화12','0');
+INSERT INTO 강좌 VALUES ('7','웹프로그래밍','2020','2','전공선택','6','11','1','화34','0');
+INSERT INTO 강좌 VALUES ('8','자료구조','2020','2','전공필수','7','12','1','화56','0');
+INSERT INTO 강좌 VALUES ('9','객체지향프로그래밍','2020','1','전공필수','8','13','1','월12','0');
+INSERT INTO 강좌 VALUES ('10','공학기술프로그래밍','2020','1','전공선택','3','14','1','월34','0');
+INSERT INTO 강좌 VALUES ('11','인디게임 창업','2020','1','자유교양','4','15','1','월56','0');
+INSERT INTO 강좌 VALUES ('12','정보보호','2020','1','전공선택','5','16','1','수56','0');
+INSERT INTO 강좌 VALUES ('13','컴퓨터시스템설계','2020','1','전공선택','6','17','1','금23','0');
+INSERT INTO 강좌 VALUES ('14','디지털신호처리','2020','1','전공선택','7','18','1','목34','0');
+
+
 SELECT * FROM 강좌;
 
 -- 수강평가게시판 INSERT
-
-COMMIT;
-
-------------------------------------------------------
--- Additional Commit By Jongseok
-
-INSERT INTO 책 VALUES ('9','디지털 신호 처리');
-INSERT INTO 책 VALUES ('10','C++ 프로그래밍');
-INSERT INTO 책 VALUES ('11', 'JAVA 개발자를 위한 XML');
-INSERT INTO 책 VALUES ('12','C#프로그래밍 입문');
 
 COMMIT;

@@ -24,7 +24,7 @@ class SelectPanel extends JPanel {
 		public SelectPanel() {
 			// 학과명 세팅
 			majorLabel = new JLabel("학과명");
-			String majors[] = { "선택", "컴퓨터공학과", "전기공학과", "건축공학과", "토목공학과", "전자 공학과", "소프트웨어 공학과" };
+			String majors[] = { "선택", "컴퓨터공학과", "전기공학과", "건축공학과", "토목공학과", "전자공학과", "소프트웨어공학과" };
 			majorCombo = new JComboBox<String>(majors);
 
 			// 이수구분 세팅
