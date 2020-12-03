@@ -1,13 +1,13 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+import java.awt.Container;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class MainRdp extends JFrame{
     static private MainRdp instance;
     
+    private Container c;
 	private DB_Conn_Query dbc;
 	private String usrId;
 	private String usrName;
@@ -31,14 +31,13 @@ public class MainRdp extends JFrame{
 		setSize(800, 500);
 
 		// 컨테이너 세팅
-		Container c = getContentPane();
+		c = getContentPane();
 		c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));
-		//c.setLayout(new FlowLayout());
-
+		
 		// Panel 추가
 		c.add(new LoginPanel());
 		c.add(new SelectPanel());
-		c.add(new TabelPanel());
+		c.add(TablePanel.getInstance());
 
 		setVisible(true);
 	}
@@ -46,7 +45,7 @@ public class MainRdp extends JFrame{
 	public void setUsrId(String usrId) {this.usrId = usrId;}
 	public void setUsrName(String usrName) {this.usrName = usrName;}
 	public DB_Conn_Query getDbc() {return dbc;}
-	
+	public Container getContainer() {return c;}
 	public static void main(String[] args) {
 		new MainRdp();
 	}

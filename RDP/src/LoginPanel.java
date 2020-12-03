@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -42,13 +43,14 @@ class LoginPanel extends Panel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
+						String idS = idTextField.getText();
 						String pwS = new String(pwField.getPassword());
 						
 						PreparedStatement pstmt = MainRdp.getInstance().getDbc().con.prepareStatement
 								("SELECT * "
 								+ "FROM 사용자 "
 								+ "WHERE 사용자ID=? AND 비밀번호=?");
-						pstmt.setString(1, idTextField.getText());
+						pstmt.setString(1, idS);
 						pstmt.setString(2, pwS);
 						
 						ResultSet rs = pstmt.executeQuery();
@@ -60,6 +62,9 @@ class LoginPanel extends Panel {
 								
 								myJPanel.revalidate();
 								myJPanel.repaint();
+								
+								MainRdp.getInstance().setUsrId(idS);
+								MainRdp.getInstance().setUsrName(rs.getString("닉네임"));
 								System.out.println("로그인 성공");
 						} else { // 로그인 실패
 							System.out.println("로그인 실패");
