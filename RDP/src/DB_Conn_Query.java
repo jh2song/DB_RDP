@@ -19,9 +19,14 @@ class DB_Conn_Query {
 			System.out.println("Connection Fail");
 		}
 	}
-	/*
+	
+	
 	public void finalize() {
-		con.close();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	*/
+	
 }
