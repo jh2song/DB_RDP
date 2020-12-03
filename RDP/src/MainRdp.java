@@ -32,7 +32,8 @@ public class MainRdp extends JFrame{
 
 		// 컨테이너 세팅
 		Container c = getContentPane();
-		c.setLayout(new FlowLayout());
+		c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));
+		//c.setLayout(new FlowLayout());
 
 		// Panel 추가
 		c.add(new LoginPanel());
