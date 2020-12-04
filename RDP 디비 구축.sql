@@ -211,12 +211,32 @@ CREATE OR REPLACE PROCEDURE SP_allRateSession (
     PI_연도 IN 강좌.연도%TYPE,
     PI_학기 IN 강좌.학기%TYPE,
     PO_교재 OUT 책.책이름%TYPE,
-    PO_전체평점 OUT 강좌.전체평점%TYPE
+    PO_전체평점 OUT 강좌.전체평점%TYPE,
+    PO_강좌코드 OUT 강좌.강좌코드%TYPE
 ) AS
 
 BEGIN
-    SELECT 교수.교수명, 책.책이름, 강좌.전체평점 INTO PO_교수, PO_교재, PO_전체평점
+    SELECT 교수.교수명, 책.책이름, 강좌.전체평점, 강좌.강좌코드 INTO PO_교수, PO_교재, PO_전체평점, PO_강좌코드 
     FROM 강좌,학과,책,교수
     WHERE 강좌.학과코드=학과.학과코드 AND 강좌.수업책코드=책.책코드 AND 강좌.교수코드=교수.교수코드-- 조인
     AND 강좌.강좌명=PI_강좌명 AND 학과.학과명=PI_학과명 AND 강좌.연도=PI_연도 AND 강좌.학기=PI_학기;
 END;
+
+COMMIT;
+-----------------------------------------------------
+CREATE OR REPLACE PROCEDURE SP_isRated (
+    PI_강좌코드 IN 수강평가게시판.강좌코드%TYPE,
+    PI_사용자ID IN 수강평가게시판.사용자ID%TYPE,
+    PO_남김여부 OUT NUMBER
+) AS
+    V_수 NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO V_수 FROM 수강평가게시판 WHERE 강좌코드=PI_강좌코드 AND 사용자ID=PI_사용자ID;
+    IF V_수 >= 1 THEN
+        PO_남김여부 := 1;
+    ELSE
+        PO_남김여부 := 0;
+    END IF;
+END;
+
+COMMIT;
