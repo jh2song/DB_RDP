@@ -63,7 +63,7 @@ class TablePanel extends JPanel {
 					String sem = (String)table.getValueAt(row,4); // 학기
 					
 					System.out.println(cName + " " + major + " " + year + " " + sem);
-					new RateSession(cName, major, year, sem);
+					new RateBoard(cName, major, year, sem);
 				}
 				
 			});

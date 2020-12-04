@@ -43,6 +43,7 @@ public class MainRdp extends JFrame{
 	}
 
 	public void setUsrId(String usrId) {this.usrId = usrId;}
+	public String getUsrId() {return this.usrId;}
 	public void setUsrName(String usrName) {this.usrName = usrName;}
 	public DB_Conn_Query getDbc() {return dbc;}
 	public Container getContainer() {return c;}

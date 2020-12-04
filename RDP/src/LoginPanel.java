@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -56,17 +57,18 @@ class LoginPanel extends Panel {
 						ResultSet rs = pstmt.executeQuery();
 						
 						if(rs.next()) { // 로그인 성공
-								myJPanel.removeAll();
+							myJPanel.removeAll();
 								
-								myJPanel.add(new JLabel(rs.getString("닉네임")+"님 환영합니다!!"));
+							myJPanel.add(new JLabel(rs.getString("닉네임")+"님 환영합니다!!"));
 								
-								myJPanel.revalidate();
-								myJPanel.repaint();
+							myJPanel.revalidate();
+							myJPanel.repaint();
 								
-								MainRdp.getInstance().setUsrId(idS);
-								MainRdp.getInstance().setUsrName(rs.getString("닉네임"));
-								System.out.println("로그인 성공");
+							MainRdp.getInstance().setUsrId(idS);
+							MainRdp.getInstance().setUsrName(rs.getString("닉네임"));
+							System.out.println("로그인 성공");
 						} else { // 로그인 실패
+							JOptionPane.showMessageDialog(null, "로그인 실패.", "로그인 실패.", JOptionPane.ERROR_MESSAGE);;
 							System.out.println("로그인 실패");
 						}
 						
