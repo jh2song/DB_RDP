@@ -165,20 +165,20 @@ SELECT * FROM 교수;
 수업일     NVARCHAR2(50)   NOT NULL,
 전체평점    NUMBER(3,2)     NOT NULL,
 */
-INSERT INTO 강좌 VALUES ('1','기초프로그래밍1','2020','1','전공필수','1','1','1','월23수12','0');
-INSERT INTO 강좌 VALUES ('2','데이터베이스응용','2020','2','전공선택','2','2','1','월45수34','0');
-INSERT INTO 강좌 VALUES ('3','알기쉬운 전기세계','2020','1','자유교양','4','4','2','화67','0');
-INSERT INTO 강좌 VALUES ('4','프로그래밍입문','2020','2','공통교양','8','8','6','목67','0');
-INSERT INTO 강좌 VALUES ('5','비주얼프로그래밍','2020','2','전공필수','3','9','1','월12','0');
-INSERT INTO 강좌 VALUES ('6','운영체제','2020','2','전공선택','5','10','1','화12','0');
-INSERT INTO 강좌 VALUES ('7','웹프로그래밍','2020','2','전공선택','6','11','1','화34','0');
-INSERT INTO 강좌 VALUES ('8','자료구조','2020','2','전공필수','7','12','1','화56','0');
-INSERT INTO 강좌 VALUES ('9','객체지향프로그래밍','2020','1','전공필수','8','13','1','월12','0');
-INSERT INTO 강좌 VALUES ('10','공학기술프로그래밍','2020','1','전공선택','3','14','1','월34','0');
-INSERT INTO 강좌 VALUES ('11','인디게임 창업','2020','1','자유교양','4','15','1','월56','0');
-INSERT INTO 강좌 VALUES ('12','정보보호','2020','1','전공선택','5','16','1','수56','0');
-INSERT INTO 강좌 VALUES ('13','컴퓨터시스템설계','2020','1','전공선택','6','17','1','금23','0');
-INSERT INTO 강좌 VALUES ('14','디지털신호처리','2020','1','전공선택','7','18','1','목34','0');
+INSERT INTO 강좌 VALUES ('1','기초프로그래밍1','2020','1','전공필수','1','1','1','월23수12',0);
+INSERT INTO 강좌 VALUES ('2','데이터베이스응용','2020','2','전공선택','2','2','1','월45수34',0);
+INSERT INTO 강좌 VALUES ('3','알기쉬운 전기세계','2020','1','자유교양','4','4','2','화67',0);
+INSERT INTO 강좌 VALUES ('4','프로그래밍입문','2020','2','공통교양','8','8','6','목67',0);
+INSERT INTO 강좌 VALUES ('5','비주얼프로그래밍','2020','2','전공필수','3','9','1','월12',0);
+INSERT INTO 강좌 VALUES ('6','운영체제','2020','2','전공선택','5','10','1','화12',0);
+INSERT INTO 강좌 VALUES ('7','웹프로그래밍','2020','2','전공선택','6','11','1','화34',0);
+INSERT INTO 강좌 VALUES ('8','자료구조','2020','2','전공필수','7','12','1','화56',0);
+INSERT INTO 강좌 VALUES ('9','객체지향프로그래밍','2020','1','전공필수','8','13','1','월12',0);
+INSERT INTO 강좌 VALUES ('10','공학기술프로그래밍','2020','1','전공선택','3','14','1','월34',0);
+INSERT INTO 강좌 VALUES ('11','인디게임 창업','2020','1','자유교양','4','15','1','월56',0);
+INSERT INTO 강좌 VALUES ('12','정보보호','2020','1','전공선택','5','16','1','수56',0);
+INSERT INTO 강좌 VALUES ('13','컴퓨터시스템설계','2020','1','전공선택','6','17','1','금23',0);
+INSERT INTO 강좌 VALUES ('14','디지털신호처리','2020','1','전공선택','7','18','1','목34',0);
 
 
 SELECT * FROM 강좌;
@@ -222,7 +222,6 @@ BEGIN
     AND 강좌.강좌명=PI_강좌명 AND 학과.학과명=PI_학과명 AND 강좌.연도=PI_연도 AND 강좌.학기=PI_학기;
 END;
 
-COMMIT;
 -----------------------------------------------------
 CREATE OR REPLACE PROCEDURE SP_isRated (
     PI_강좌코드 IN 수강평가게시판.강좌코드%TYPE,
@@ -238,5 +237,44 @@ BEGIN
         PO_남김여부 := 0;
     END IF;
 END;
+
+---------------------------------------------------------
+-- 수강평가게시판 글 코드 시퀀스 생성
+CREATE SEQUENCE SEQ_POST INCREMENT BY 1 START WITH 1;
+
+-------------------------------------------------
+-- 트리거
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE TRIGGER TRI_rateUpdate
+    BEFORE INSERT OR DELETE OR UPDATE
+    ON 수강평가게시판
+    FOR EACH ROW
+DECLARE
+    T_평가수 NUMBER(5,0);
+BEGIN
+    IF INSERTING THEN
+        UPDATE 강좌 SET 평가인원=평가인원+1 WHERE 강좌코드=:NEW.강좌코드;
+        UPDATE 강좌 SET 전체평점=((평가인원-1)*전체평점+:NEW.평점)/(평가인원) WHERE 강좌코드=:NEW.강좌코드;
+    ELSIF DELETING THEN
+        UPDATE 강좌 SET 평가인원=평가인원-1 WHERE 강좌코드=:OLD.강좌코드;
+        SELECT 평가인원 INTO T_평가수 FROM 강좌 WHERE 강좌코드=:OLD.강좌코드;
+        IF T_평가수=0 THEN
+            UPDATE 강좌 SET 전체평점=0 WHERE 강좌코드=:OLD.강좌코드;
+        ELSE
+            UPDATE 강좌 SET 전체평점=((평가인원+1)*전체평점-:OLD.평점)/(평가인원) WHERE 강좌코드=:OLD.강좌코드;
+        END IF;
+    ELSIF UPDATING THEN
+        UPDATE 강좌 SET 전체평점=(평가인원*전체평점-:OLD.평점+:NEW.평점)/평가인원 WHERE 강좌코드=:NEW.강좌코드;
+    END IF;
+END;
+
+-- 트리거 안에서 평가한 인원을 구하다보니 Mutating 에러가 나서 새로 칼럼을 만듬
+ALTER TABLE 강좌 ADD 평가인원 NUMBER(5,0) DEFAULT 0; 
+
+SELECT * FROM 강좌;
+SELECT * FROM 수강평가게시판;
+DELETE FROM 수강평가게시판 WHERE 글코드=8;
+UPDATE 강좌 SET 전체평점=0,평가인원=0 WHERE 강좌코드=1 OR 강좌코드=2;
 
 COMMIT;

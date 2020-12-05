@@ -68,7 +68,7 @@ class LoginPanel extends Panel {
 							MainRdp.getInstance().setUsrName(rs.getString("닉네임"));
 							System.out.println("로그인 성공");
 						} else { // 로그인 실패
-							JOptionPane.showMessageDialog(null, "로그인 실패.", "로그인 실패.", JOptionPane.ERROR_MESSAGE);;
+							JOptionPane.showMessageDialog(null, "로그인 실패.", "로그인 실패.", JOptionPane.ERROR_MESSAGE);
 							System.out.println("로그인 실패");
 						}
 						

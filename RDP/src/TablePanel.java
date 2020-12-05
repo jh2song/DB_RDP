@@ -62,7 +62,6 @@ class TablePanel extends JPanel {
 					String year = (String)table.getValueAt(row, 3); // 연도
 					String sem = (String)table.getValueAt(row,4); // 학기
 					
-					System.out.println(cName + " " + major + " " + year + " " + sem);
 					new RateBoard(cName, major, year, sem);
 				}
 				
