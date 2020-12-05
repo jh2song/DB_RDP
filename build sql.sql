@@ -278,3 +278,29 @@ DELETE FROM 수강평가게시판 WHERE 글코드=8;
 UPDATE 강좌 SET 전체평점=0,평가인원=0 WHERE 강좌코드=1 OR 강좌코드=2;
 
 COMMIT;
+
+
+SET SERVEROUTPUT ON;
+DECLARE
+    v1 교수.교수명%TYPE;
+    v2 책.책이름%TYPE;
+    v3 강좌.전체평점%TYPE;
+    v4 강좌.강좌코드%TYPE;
+BEGIN
+    SP_ALLRATESESSION('기초프로그래밍1','컴퓨터공학과',v1,'2020','1',v2,v3,v4);
+    DBMS_OUTPUT.PUT_LINE(v1 || ':' || v2 || ':' || v3 || ':' || v4);
+END;
+
+SET SERVEROUTPUT ON;
+DECLARE
+    v1 NUMBER;
+BEGIN
+    SP_ISRATED('1','apple',v1);
+    DBMS_OUTPUT.PUT_LINE(v1);
+END;
+
+SELECT * FROM 강좌 WHERE 강좌코드='1';
+
+SELECT * FROM 수강평가게시판 WHERE 강좌코드='1';
+
+UPDATE 수강평가게시판 SET 평점='1' WHERE 강좌코드='1' AND 사용자ID='banana';

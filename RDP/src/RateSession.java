@@ -52,6 +52,7 @@ public class RateSession extends JFrame {
 		regButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("RateSession Button Event");
 				// 예외처리
 				String comment = comTextArea.getText();
 				int rateNum;
@@ -95,6 +96,7 @@ public class RateSession extends JFrame {
 							ResultSet rs2 = pstmt.executeQuery();
 							pstmt.close(); rs2.close();
 					}
+					stmt.close(); rs.close();
 					dispose();
 				} catch(SQLException e2) {e2.printStackTrace();}
 			}
