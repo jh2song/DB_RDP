@@ -1,3 +1,5 @@
 # DB_RDP
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/jEkmzbK00Bc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+* 클릭하시면 해당 유튜브가 재생됩니다.
+
+[![Video Label](http://img.youtube.com/vi/jEkmzbK00Bc/0.jpg)](https://youtu.be/uLR1RNqJ1Mw?t=0s)
